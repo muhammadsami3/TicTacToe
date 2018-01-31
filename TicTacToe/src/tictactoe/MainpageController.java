@@ -63,6 +63,8 @@ public class MainpageController implements Initializable {
 
     @FXML
     private void playRecord(MouseEvent event) {
+       record_check.isSelected();
+//Gets the value of the property selected
     }
 
     @FXML

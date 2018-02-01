@@ -17,7 +17,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="620.0" focusTraversable="true">
          <image>
-            <Image url="@xo.png" />
+            <Image url="@Neon-Tic-Tac-Toe-89376.gif" />
          </image>
       </ImageView>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#aeaaaa" height="400.0" layoutX="148.0" opacity="0.61" stroke="BLACK" strokeType="INSIDE" width="311.0" />

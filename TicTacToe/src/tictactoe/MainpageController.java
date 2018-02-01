@@ -50,19 +50,25 @@ public class MainpageController implements Initializable {
     }    
 
     @FXML
-    private void single(MouseEvent event) {
+    private void single(MouseEvent event) throws IOException{
+         AnchorPane pane = FXMLLoader.load(getClass().getResource("New_resume.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
-    private void GoOnline(MouseEvent event) {
+    private void GoOnline(MouseEvent event) throws IOException{
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("New_resume.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
-    private void twoPlayers(MouseEvent event) {
+    private void twoPlayers(MouseEvent event) throws IOException{
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("New_resume.fxml"));
+        rootPane.getChildren().setAll(pane);
     }
 
     @FXML
-    private void playRecord(MouseEvent event) {
+    private void playRecord(MouseEvent event) throws IOException {
        record_check.isSelected();
 //Gets the value of the property selected
     }

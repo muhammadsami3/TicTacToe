@@ -25,16 +25,13 @@ public class TicTacToe extends Application {
     
     @Override
     public void start(Stage primaryStage) throws IOException {
-
-       
        Parent root=FXMLLoader.load(getClass().getResource("Login_page.fxml"));
-       //mainpageBase main=new mainpageBase();
+        Scene scene1 = new Scene(root,600, 390);
         
-        Scene scene1 = new Scene(root, 600, 600);
-        
-        primaryStage.setTitle("Login Page");
-
+        primaryStage.setTitle("Tic Tac Toe");
         primaryStage.setScene(scene1);
+        
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
 

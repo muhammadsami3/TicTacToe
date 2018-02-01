@@ -51,6 +51,7 @@ public class Login_pageController implements Initializable {
                 if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty()  )
                 {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+        
         rootPane.getChildren().setAll(pane);
                 }
 

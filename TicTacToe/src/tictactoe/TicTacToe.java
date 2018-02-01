@@ -28,6 +28,7 @@ public class TicTacToe extends Application {
         primaryStage.setTitle("Login Page");
         primaryStage.setScene(scene);
         primaryStage.show();
+        
     }
 
     /**

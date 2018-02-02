@@ -5,11 +5,15 @@
  */
 package tictactoe;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
@@ -20,13 +24,14 @@ import javafx.stage.Stage;
 public class TicTacToe extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-       Login log=new Login();
+    public void start(Stage primaryStage) throws IOException {
+       Parent root=FXMLLoader.load(getClass().getResource("Login_page.fxml"));
+        Scene scene1 = new Scene(root,600, 390);
         
-        Scene scene = new Scene(log, 300, 250);
+        primaryStage.setTitle("Tic Tac Toe");
+        primaryStage.setScene(scene1);
         
-        primaryStage.setTitle("Login Page");
-        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
         primaryStage.show();
         
     }

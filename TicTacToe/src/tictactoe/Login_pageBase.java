@@ -1,5 +1,8 @@
 package tictactoe;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -9,7 +12,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public  class Login extends GridPane {
+public  class Login_pageBase extends GridPane {
 
     protected final ColumnConstraints columnConstraints;
     protected final ColumnConstraints columnConstraints0;
@@ -28,7 +31,7 @@ public  class Login extends GridPane {
     protected final TextField textField;
     protected final TextField textField0;
 
-    public Login() {
+    public Login_pageBase() {
 
         columnConstraints = new ColumnConstraints();
         columnConstraints0 = new ColumnConstraints();
@@ -162,6 +165,17 @@ public  class Login extends GridPane {
         getChildren().add(button0);
         getChildren().add(textField);
         getChildren().add(textField0);
+        
+        button.setOnAction(new EventHandler<ActionEvent>(){
+        
+        public void handle(ActionEvent e){
+         
+            
+            
+                    
+        }
+        
+        });
 
     }
 } 

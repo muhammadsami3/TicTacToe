@@ -1,0 +1,90 @@
+package chatroom;
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Vector;
+
+public class ChatRoom {
+
+    ServerSocket myServerSocket;
+    Socket s;
+
+    public ChatRoom() {
+        try {
+            myServerSocket = new ServerSocket(5005);
+            while (true) {
+                s = myServerSocket.accept();
+                new ChatHandler(s);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args) {
+        new ChatRoom();
+    }
+}
+
+class ChatHandler extends Thread {
+
+    DataInputStream dis;
+    PrintStream ps;
+    String uname;
+    
+    static Vector<ChatHandler> clientsVector = new Vector<ChatHandler>();
+    static Vector<String> playersName = new Vector<String>();
+
+    public ChatHandler(Socket cs) {
+        try {
+            dis = new DataInputStream(cs.getInputStream());
+            ps = new PrintStream(cs.getOutputStream());
+            clientsVector.add(this);
+            start();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            
+            try {
+                uname = dis.readLine();
+                playersName.add(uname);
+                
+
+                for (ChatHandler ch : clientsVector) {
+                    for (String p : playersName) {
+                        ch.ps.println(p);
+                     //   System.out.println(p);
+                    }
+                }
+
+            } catch (IOException ex) {
+                clientsVector.remove(this);
+                playersName.remove(this.uname);
+                System.out.println("remove");
+                break;
+            }
+
+        }
+    }
+
+    void sendMessageToAll(String uname) {
+
+    }
+}
+
+//class client {
+//    String name;
+//    String passwd;
+//    public client{
+//}
+//}

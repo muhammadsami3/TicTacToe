@@ -57,13 +57,13 @@ public class MainpageController implements Initializable {
 
     @FXML
     private void GoOnline(MouseEvent event) throws IOException{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("New_resume.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("XO.fxml"));
         rootPane.getChildren().setAll(pane);
     }
 
     @FXML
     private void twoPlayers(MouseEvent event) throws IOException{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("New_resume.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("XO.fxml"));
         rootPane.getChildren().setAll(pane);
     }
 

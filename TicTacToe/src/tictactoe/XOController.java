@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -22,48 +23,53 @@ import javafx.scene.input.MouseEvent;
  * @author maryam
  */
 public class XOController implements Initializable {
-
+    Image imgO=new Image(getClass().getResourceAsStream("o.png"));
+    Image imgX=new Image(getClass().getResourceAsStream("x.png"));
     @FXML
-    private Label cell0;
-    @FXML
-    private Label cell6;
-    @FXML
-    private Label cell1;
-    @FXML
-    private Label cell3;
-    @FXML
-    private Label cell4;
-    @FXML
-    private Label cell7;
-    @FXML
-    private Label cell5;
+    private AnchorPane rootPane;
     @FXML
     private Label cell8;
     @FXML
+    private Label cell5;
+    @FXML
+    private Label cell1;
+    @FXML
+    private Label cell7;
+    @FXML
+    private Label cell3;
+    @FXML
+    private Label cell0;
+    @FXML
     private Label cell2;
-    Image image = new Image(getClass().getResourceAsStream("test1.png"));
-    Image computer = new Image(getClass().getResourceAsStream("comp.png"));
+    @FXML
+    private Label cell4;
+    @FXML
+    private Label cell6;
     
     boolean isEmpty[]={true,true,true,true,true,true,true,true,true};
     Label labels[]={cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7,cell8};
 
-    //ArrayList isEmpty = new ArrayList();
-    
-    //ArrayList obj = new ArrayList();
-    
-    
-
-  
-
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
    
-    @FXML
+    public void computerTurn()
+    {
+        Random rand = new Random();
+        int  n = rand.nextInt(9);
+        while(isEmpty[n]==false )
+        {
+            n = rand.nextInt(9);
+        }
+        
+        Label x=labels[n];
+        x.setGraphic(new ImageView(imgX));
+        isEmpty[n]=false;
+        labels[n]=null;
+       
+    }
+
     boolean checkFull()
     {   
         int counter=0;
@@ -79,163 +85,105 @@ public class XOController implements Initializable {
         }else
             return false;
     }
-    private void cell00(MouseEvent event) {
+
+    private void cell0(MouseEvent event) {
         if(isEmpty[0])
         {
-          
-            /*obj.add(cell0);
-            obj.add(cell1);
-            obj.add(cell2);
-            obj.add(cell3);
-            obj.add(cell4);
-            obj.add(cell5);
-            obj.add(cell6);
-            obj.add(cell7);
-            obj.add(cell8);*/
-            cell0.setGraphic(new ImageView(image));
+  
+            cell0.setGraphic(new ImageView(imgO));
             isEmpty[0]=false;
-            /*
-            obj.remove(cell0);
-            obj.set(0,null);
-           // computerTurn();*/
            labels[0]=null;
            if(!checkFull()){computerTurn();}
             
         }
-        
     }
 
     @FXML
-    private void cell02(MouseEvent event) {
+    private void cell1(MouseEvent event)
+{
         
-        if(isEmpty[6])
-        {
-            cell6.setGraphic(new ImageView(image));
-            isEmpty[6]=false;
-            //obj.remove(cell6);
-            //obj.set(6,null);
-            labels[6]=null;
-            if(!checkFull())computerTurn();
-            //computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell10(MouseEvent event) {
         if(isEmpty[1])
         {
-            cell1.setGraphic(new ImageView(image));
+            cell1.setGraphic(new ImageView(imgO));
             isEmpty[1]=false;
-           // obj.remove(cell1);
-           //obj.set(1,null);
-            //computerTurn();
             labels[1]=null;
-            if(!checkFull())computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell01(MouseEvent event) {
-        if(isEmpty[3])
-        {
-            cell3.setGraphic(new ImageView(image));
-            isEmpty[3]=false;
-            //obj.remove(cell3);
-            //obj.set(3,null);
-           // computerTurn();
-           labels[3]=null;
-            if(!checkFull())computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell11(MouseEvent event) {
-        if(isEmpty[4])
-        {
-            cell4.setGraphic(new ImageView(image));
-            isEmpty[4]=false;
-            //obj.remove(cell4);
-            //obj.set(4,null);
-            //computerTurn();
-            labels[4]=null;
-            if(!checkFull())computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell12(MouseEvent event) {
-        if(isEmpty[7])
-        {
-            cell7.setGraphic(new ImageView(image));
-            isEmpty[7]=false;
-            //obj.remove(cell7);
-            //obj.set(7,null);
-            //computerTurn();
-            labels[7]=null;
-            if(!checkFull())computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell20(MouseEvent event) {
-        if(isEmpty[2])
-        {
-            cell2.setGraphic(new ImageView(image));
-            isEmpty[2]=false;
-            //obj.remove(cell2);
-           // obj.set(2,null);
-           // computerTurn();
-           labels[2]=null;
-           if(!checkFull())computerTurn();
-        }
-    }
-
-    @FXML
-    private void cell21(MouseEvent event) {
-        if(isEmpty[5])
-        {
-            cell5.setGraphic(new ImageView(image));
-            isEmpty[5]=false;
-            //obj.remove(cell5);
-            //obj.set(5,null);
-            //computerTurn();
-            labels[5]=null;
             if(!checkFull()){computerTurn();}
         }
-    }
+}
+
 
     @FXML
-    private void cell22(MouseEvent event) {
-        if(isEmpty[8])
+
+    private void cell2(MouseEvent event) {
+       if(isEmpty[2])
         {
-            cell8.setGraphic(new ImageView(image));
-            isEmpty[8]=false;
-            //obj.remove(cell8);
-            //obj.set(8,null);
-           // computerTurn();
-           labels[8]=null;
-           if(!checkFull())
-           {computerTurn();}
-        }
-    }
- 
-    public void computerTurn()
-    {
-        Random rand = new Random();
-        //int z=9;
-        int  n = rand.nextInt(9);
-        while(isEmpty[n]==false )
-        {
-            n = rand.nextInt(9);
-        }
-        
-        Label x=labels[n];
-        x.setGraphic(new ImageView(computer));
-        isEmpty[n]=false;
-        //obj.set(n,null);
-        labels[n]=null;
-        //obj.remove(x);
-        //z--;
-       
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[2]=false;
+            labels[2]=null;
+            if(!checkFull())computerTurn();
     }
 }
+
+    @FXML
+    private void cell3(MouseEvent event) {
+        if(isEmpty[3])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[3]=false;
+            labels[3]=null;
+            if(!checkFull())computerTurn();
+    }
+}
+
+    private void cell4(MouseEvent event) {
+       if(isEmpty[4])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[4]=false;
+            labels[4]=null;
+            if(!checkFull())computerTurn();
+    }
+}
+
+    @FXML
+
+
+    private void cell5(MouseEvent event) {if(isEmpty[5])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[5]=false;
+            labels[5]=null;
+            if(!checkFull())computerTurn();
+    }
+}
+
+    private void cell6(MouseEvent event) {
+        if(isEmpty[6])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[6]=false;
+            labels[6]=null;
+            if(!checkFull())computerTurn();
+    }
+}
+       private void cell7(MouseEvent event) {
+        if(isEmpty[7])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[7]=false;
+            labels[7]=null;
+            if(!checkFull())computerTurn();
+    }
+       }
+    @FXML
+    private void cell8(MouseEvent event){
+        if(isEmpty[8])
+        {
+            cell1.setGraphic(new ImageView(imgO));
+            isEmpty[8]=false;
+            labels[8]=null;
+            if(!checkFull())computerTurn();
+    }
+
+}
+       }

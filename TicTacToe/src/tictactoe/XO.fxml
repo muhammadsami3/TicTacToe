@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="tictactoe.XOController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.XOController">
   <children>
-    <GridPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="400.0">
+    <GridPane gridLinesVisible="true" layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="400.0">
       <children>
-        <Label alignment="CENTER" onMouseClicked="#cell00" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Label alignment="CENTER" onMouseClicked="#cell02" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Label alignment="CENTER" onMouseClicked="#cell10" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label alignment="CENTER" onMouseClicked="#cell01" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Label alignment="CENTER" onMouseClicked="#cell11" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Label alignment="CENTER" onMouseClicked="#cell12" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Label alignment="CENTER" onMouseClicked="#cell20" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <Label alignment="CENTER" onMouseClicked="#cell21" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <Label alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#cell22" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <Label id="cell0" fx:id="cell0" alignment="CENTER" onMouseClicked="#cell00" prefHeight="133.0" prefWidth="133.0" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label fx:id="cell6" alignment="CENTER" onMouseClicked="#cell02" prefHeight="133.0" prefWidth="133.0" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <Label id="cell1" fx:id="cell1" alignment="CENTER" onMouseClicked="#cell10" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="1" />
+        <Label id="cell4" fx:id="cell3" alignment="CENTER" onMouseClicked="#cell01" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label fx:id="cell4" alignment="CENTER" onMouseClicked="#cell11" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label fx:id="cell7" alignment="CENTER" onMouseClicked="#cell12" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label id="cell3" fx:id="cell2" alignment="CENTER" onMouseClicked="#cell20" prefHeight="133.0" prefWidth="133.0" GridPane.columnIndex="2" />
+        <Label fx:id="cell5" alignment="CENTER" onMouseClicked="#cell21" prefHeight="133.0" prefWidth="133.0" text="O" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <Label fx:id="cell8" alignment="CENTER" contentDisplay="CENTER" onMouseClicked="#cell22" prefHeight="133.0" prefWidth="133.0" text="X" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

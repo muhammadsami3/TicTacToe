@@ -31,7 +31,7 @@ public class GameDatabase {
 
         try {
             Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://192.168.43.19:5432/tictactoe", "postgres", "postgres");
+            conn = DriverManager.getConnection("jdbc:postgresql://10.145.3.109:5432/tictactoe", "postgres", "root");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

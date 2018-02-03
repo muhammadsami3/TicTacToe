@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Vector;
-import server.Server;
 
 class ClientHandler extends Thread {
     DataInputStream dis;
@@ -32,13 +31,12 @@ class ClientHandler extends Thread {
         while (true) {
 
             try {
-                
                 String clientRequest = dis.readLine();
                 if(clientRequest.equals("login")){
                     
                     String username=dis.readLine();
-                    
-                     if(!GameDatabase.validatePlayer(username)){
+                    String passwd=dis.readLine();
+                     if(!GameDatabase.validatePlayer(username,passwd)){
                          System.out.println("valid login name");
                          ps.println("valid");
                      }else {
@@ -48,8 +46,10 @@ class ClientHandler extends Thread {
                      }
                     
                 }else if(clientRequest.equals("signup")){
+                    
                      String username=dis.readLine();
-                     if(GameDatabase.validatePlayer(username)){
+                      String passwd=dis.readLine();
+                     if(GameDatabase.validatePlayer(username,passwd)){
                          ps.println("valid");
                      }else {
                          ps.println("not valid");
@@ -75,7 +75,19 @@ class ClientHandler extends Thread {
                         }
                     }
                 }else if(clientRequest.equals("game")){
-                
+                    
+                    System.out.println("game");
+
+                    while(true){
+                        
+                    String position =dis.readLine();
+                    for (ClientHandler ch : clientsVector) {
+                        ch.ps.println(position);
+                        System.out.println(position);
+                            
+                        }
+                    
+                    }
                 }
             } catch (IOException ex) {
                 clientsVector.remove(this);

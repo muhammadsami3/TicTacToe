@@ -41,7 +41,7 @@ public class Server {
 
     public static void main(String[] args) {
 
-     //   GameDatabase.connectToDatabase();
+        GameDatabase.connectToDatabase();
         new Server();
     }
 }

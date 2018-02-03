@@ -78,6 +78,7 @@ public class Login_pageController implements Initializable ,Runnable{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
+                           
                             switchToPage();
                         }
                     });
@@ -107,7 +108,7 @@ public class Login_pageController implements Initializable ,Runnable{
                 {
                     ps.println("login");
                     ps.println(uname.getText());
-                    ps.println(passwd.getText());
+                   ps.println(passwd.getText());
                 }
 
     }
@@ -118,19 +119,23 @@ public class Login_pageController implements Initializable ,Runnable{
         {
                    ps.println("signup");
                     ps.println(uname.getText());
-                    ps.println(passwd.getText());
+                   ps.println(passwd.getText());
 
         }
     }
     public void switchToPage() {
+         ps.println("game");
         Stage stage;
         Parent root;
         try {
+           
             stage = (Stage) login_btn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+            root = FXMLLoader.load(getClass().getResource("XO.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
+             
             stage.show();
+            
         } catch (IOException ex) {
             Logger.getLogger(Login_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }

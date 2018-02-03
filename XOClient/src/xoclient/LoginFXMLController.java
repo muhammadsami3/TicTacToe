@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tictactoe;
+package xoclient;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -21,35 +21,41 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Muhammad Sami
+ * @author MohamedSalah
  */
-public class Login_pageController implements Initializable ,Runnable{
+public class LoginFXMLController implements Initializable, Runnable {
+
     static Socket mySocket;
     static DataInputStream dis;
     static PrintStream ps;
     Thread th1;
 
     @FXML
+    private Label usernameLabel;
+    @FXML
+    private TextField userNameText;
+    @FXML
+    private Button connectBtn;
+    @FXML
+    private Label passwordLabel;
+    @FXML
+    private TextField passwordText;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private Button connectBtn1;
+    @FXML
     private AnchorPane rootPane;
-    @FXML
-    private GridPane logpane;
-    @FXML
-    private Button login_btn;
-    @FXML
-    private Button sign_btn;
-    @FXML
-    private TextField uname;
-    @FXML
-    private TextField passwd;
+    private boolean flag;
 
     /**
      * Initializes the controller class.
@@ -66,14 +72,14 @@ public class Login_pageController implements Initializable ,Runnable{
         }
 
         th1.start();
-       
     }
+
     @Override
     public void run() {
         try {
             while (true) {
                 String reply = dis.readLine();
-                if (!reply.equals("valid")) {
+                if (reply.equals("valid")) {
                     System.out.println("valid");
                     Platform.runLater(new Runnable() {
                         @Override
@@ -89,7 +95,7 @@ public class Login_pageController implements Initializable ,Runnable{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                        //    errorLabel.setText("invalid");
+                            errorLabel.setText("invalid");
                         }
                     });
                     
@@ -100,40 +106,30 @@ public class Login_pageController implements Initializable ,Runnable{
         }
     }
 
-  
     @FXML
-    private void signUp(MouseEvent event) throws IOException {
-                if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty()  )
-                {
-                    ps.println("login");
-                    ps.println(uname.getText());
-                    ps.println(passwd.getText());
-                }
+    private void handleLoginBtnClicked(MouseEvent event) {
+        ps.println("login");
+        ps.println(userNameText.getText());
 
     }
 
     @FXML
-    private void login(MouseEvent event)  throws IOException{
-          if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty())
-        {
-                   ps.println("signup");
-                    ps.println(uname.getText());
-                    ps.println(passwd.getText());
-
-        }
+    private void handleSignUpBtnClicked(MouseEvent event) {
+        ps.println("signup");
+        ps.println(userNameText.getText());
     }
+
     public void switchToPage() {
         Stage stage;
         Parent root;
         try {
-            stage = (Stage) login_btn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+            stage = (Stage) connectBtn.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("secondPage.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(Login_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

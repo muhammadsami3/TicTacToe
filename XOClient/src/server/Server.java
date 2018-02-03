@@ -18,7 +18,10 @@ import javax.management.Query;
 
 public class Server {
 
-  
+    static boolean validatePlayer(String uname) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     ServerSocket myServerSocket;
     Socket s;
     Thread th;
@@ -30,7 +33,6 @@ public class Server {
             while (true) {
                 s = myServerSocket.accept();
                 new ClientHandler(s);
-
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -40,9 +42,15 @@ public class Server {
     }
 
     public static void main(String[] args) {
+        GameDatabase.connectToDatabase();
+        GameDatabase.addPlayers("mariem");
+        GameDatabase.getPlayers();
+      
+//        int passwd=GameDatabase.getPassword("aziz");
+//        System.out.println(passwd);
+       new Server();
 
-     //   GameDatabase.connectToDatabase();
-        new Server();
+        
     }
 }
 

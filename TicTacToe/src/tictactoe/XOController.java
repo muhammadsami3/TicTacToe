@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -47,12 +48,39 @@ public class XOController implements Initializable {
     private Label cell6;
     
     boolean isEmpty[]={true,true,true,true,true,true,true,true,true};
-    Label labels[]={cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7,cell8};
+    //Label labels[]={cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7,cell8};
+    ArrayList label=new ArrayList();
+    int[][] wins = new int[][] 
+        { { 0, 1, 2 },
+        { 3, 4, 5 }, 
+        { 6, 7, 8 }, 
+        { 0, 3, 6 }, 
+        { 1, 4, 7 }, 
+        { 2, 5, 8 }, 
+        { 0, 4, 8 }, 
+        { 2, 4, 6 } };
+    String[] xo = new String[9];
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        initial();
+        
     }    
+    void initial()
+    {
+        label.add(cell0);
+        label.add(cell1);
+        label.add(cell2);
+        label.add(cell3);
+        label.add(cell4);
+        label.add(cell5);
+        label.add(cell6);
+        label.add(cell7);
+        label.add(cell8);
+        
+        
+    }
    
     public void computerTurn()
     {
@@ -63,30 +91,32 @@ public class XOController implements Initializable {
             n = rand.nextInt(9);
         }
         
-        Label x=labels[n];
+        Label x=(Label)label.get(n);
         x.setGraphic(new ImageView(imgX));
         isEmpty[n]=false;
-        labels[n]=null;
+        xo[n]="x";
        
     }
 
     boolean checkFull()
     {   
+        boolean c=false;
         int counter=0;
         for(int i=0;i<9;i++)
         {
             if (isEmpty[i]==false)
             {
-                counter++; 
+                counter++;
+                
             }
         }
-        if(counter==9){
-            return true;
-        }else
-            return false;
+        if(counter>=8){
+            c= true;
+        }
+        return c;
     }
 
-    private void cell0(MouseEvent event) {
+   /* private void cell0(MouseEvent event) {
         if(isEmpty[0])
         {
   
@@ -96,18 +126,22 @@ public class XOController implements Initializable {
            if(!checkFull()){computerTurn();}
             
         }
-    }
+    }*/
 
     @FXML
     private void cell1(MouseEvent event)
 {
         
-        if(isEmpty[1])
+        if(isEmpty[1]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
             cell1.setGraphic(new ImageView(imgO));
             isEmpty[1]=false;
-            labels[1]=null;
-            if(!checkFull()){computerTurn();}
+            xo[1]="o";
+            //label.set(1,null);
+            //computerTurn();
+             if(!(checkFull())&&!checkForWin()){computerTurn();}
         }
 }
 
@@ -115,75 +149,143 @@ public class XOController implements Initializable {
     @FXML
 
     private void cell2(MouseEvent event) {
-       if(isEmpty[2])
+       if(isEmpty[2]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell2.setGraphic(new ImageView(imgO));
             isEmpty[2]=false;
-            labels[2]=null;
-            if(!checkFull())computerTurn();
+            xo[2]="o";
+            //label.set(2,null);
+             if(!(checkFull())&&!checkForWin())computerTurn();
     }
 }
 
     @FXML
     private void cell3(MouseEvent event) {
-        if(isEmpty[3])
+        if(isEmpty[3]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell3.setGraphic(new ImageView(imgO));
             isEmpty[3]=false;
-            labels[3]=null;
-            if(!checkFull())computerTurn();
+            xo[3]="o";
+            //label.set(3,null);
+             if(!(checkFull())&&!checkForWin())computerTurn();
     }
 }
 
+    @FXML
     private void cell4(MouseEvent event) {
-       if(isEmpty[4])
+       if(isEmpty[4]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell4.setGraphic(new ImageView(imgO));
             isEmpty[4]=false;
-            labels[4]=null;
-            if(!checkFull())computerTurn();
+            xo[4]="o";
+           // label.set(4,null);
+             if(!(checkFull())&&!checkForWin())computerTurn();
     }
 }
 
     @FXML
 
 
-    private void cell5(MouseEvent event) {if(isEmpty[5])
+    private void cell5(MouseEvent event) {if(isEmpty[5]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell5.setGraphic(new ImageView(imgO));
             isEmpty[5]=false;
-            labels[5]=null;
-            if(!checkFull())computerTurn();
+            xo[5]="o";
+           // label.set(5,null);
+            if(!(checkFull())&&!checkForWin())
+            {computerTurn();}
     }
 }
 
+    @FXML
     private void cell6(MouseEvent event) {
-        if(isEmpty[6])
+        if(isEmpty[6]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell6.setGraphic(new ImageView(imgO));
+            xo[6]="o";
             isEmpty[6]=false;
-            labels[6]=null;
-            if(!checkFull())computerTurn();
+          //  label.set(6,null);
+              if(!(checkFull())&&!checkForWin())computerTurn();
     }
 }
+    @FXML
        private void cell7(MouseEvent event) {
-        if(isEmpty[7])
+        if(isEmpty[7]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell7.setGraphic(new ImageView(imgO));
+            xo[7]="o";
             isEmpty[7]=false;
-            labels[7]=null;
-            if(!checkFull())computerTurn();
+           // label.set(7,null);
+            if(!checkFull()&&!checkForWin())
+            {computerTurn();}
     }
        }
     @FXML
     private void cell8(MouseEvent event){
-        if(isEmpty[8])
+        if(isEmpty[8]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
         {
-            cell1.setGraphic(new ImageView(imgO));
+            cell8.setGraphic(new ImageView(imgO));
             isEmpty[8]=false;
-            labels[8]=null;
-            if(!checkFull())computerTurn();
+            xo[8]="o";
+           // label.set(8,null);
+            if(!checkFull()&&!checkForWin())computerTurn();
     }
 
 }
-       }
+
+    @FXML
+    private void Cell0(MouseEvent event) {
+        if(isEmpty[0]&&!(
+                (checkForCompWin())||(checkForWin())
+                ))
+        {
+  
+            cell0.setGraphic(new ImageView(imgO));
+            isEmpty[0]=false;
+            xo[0]="o";
+           //label.set(0,null);
+           if(!(checkFull())&&!checkForWin())
+           {computerTurn();}
+            
+        }
+    }
+    boolean checkForWin() {
+        boolean z=false;
+        for (int i = 0; i < wins.length; i++) {
+
+            if (xo[wins[i][0]]=="o" && xo[wins[i][1]]=="o" && xo[wins[i][2]]=="o") {
+                    z=true;
+                    // int input1 = JOptionPane.showConfirmDialog(null, "ANA WINS");
+            }
+             
+
+        }return z;
+    }
+
+    boolean checkForCompWin() {
+        boolean z=false;
+        for (int i = 0; i < wins.length; i++) {
+            if (xo[wins[i][0]]=="x" && xo[wins[i][1]]=="x" && xo[wins[i][2]]=="x") {
+               // int input1 = JOptionPane.showConfirmDialog(null, "COMPUTER WINS");
+                    z=true;   }
+        } return z;
+
+    }
+    
+}
+	
+       

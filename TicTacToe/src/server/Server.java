@@ -33,6 +33,7 @@ public class Server {
 
     public static void main(String[] args) {
         connectToDatabase();
+//        GameDatabase.setOnline("sami");
 //       addPlayers("yehia","123456");
 //       GameDatabase.getPlayers();
 //       GameDatabase.getNextId();

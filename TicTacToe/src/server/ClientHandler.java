@@ -38,9 +38,10 @@ class ClientHandler extends Thread {
 
                     String username = dis.readLine();
                     String passwd = dis.readLine();
-                    if (GameDatabase.validatePlayer(username, passwd)) {
+                    if (!GameDatabase.validatePlayer(username, passwd)) {
                         
                         System.out.println("valid login name");
+                        GameDatabase.setOnline(username);
                         ps.println("valid");
                     } else {
 

@@ -73,7 +73,7 @@ public class Login_pageController implements Initializable ,Runnable{
         try {
             while (true) {
                 String reply = dis.readLine();
-                if (!reply.equals("valid")) {
+                if (reply.equals("valid")) {
                     System.out.println("valid");
                     Platform.runLater(new Runnable() {
                         @Override

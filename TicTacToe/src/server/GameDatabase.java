@@ -135,5 +135,21 @@ public class GameDatabase {
         return valid;
     }
 
+       public static void setOnline(String uname) {
+           
+        try {
+            String query = "update players set online='yhhh' where name=?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1,uname);
+            stmt.execute();
+
+                System.out.println("player online");
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
 
 }

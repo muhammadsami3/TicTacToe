@@ -51,6 +51,8 @@ class ClientHandler extends Thread {
                       String passwd=dis.readLine();
                      if(GameDatabase.validatePlayer(username,passwd)){
                          ps.println("valid");
+                         
+                         GameDatabase.addPlayers(username,passwd);
                      }else {
                          ps.println("not valid");
                      }

@@ -21,6 +21,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import static tictactoe.Login_pageController.dis;
+import static tictactoe.Login_pageController.ps;
 
 
 /**
@@ -30,10 +32,8 @@ import javafx.scene.layout.AnchorPane;
  */
 public class XOController implements Initializable ,Runnable{
 
-    static Socket mySocket;
-    static DataInputStream dis;
-    static PrintStream ps;
-    Thread th1;
+   
+    Thread th;
     
     Image imgO=new Image(getClass().getResourceAsStream("o.png"));
     Image imgX=new Image(getClass().getResourceAsStream("x.png"));
@@ -67,18 +67,9 @@ public class XOController implements Initializable ,Runnable{
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-        try {
-            th1 = new Thread(this);
-            mySocket = new Socket(InetAddress.getLocalHost(), 5005);
-            ps = new PrintStream(mySocket.getOutputStream());
-            dis = new DataInputStream(mySocket.getInputStream());
-       
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        th1.start();
+        ps.println("game");
+        th = new Thread(this);
+        th.start();
     }    
 
     @FXML
@@ -126,8 +117,22 @@ public class XOController implements Initializable ,Runnable{
     @FXML
     private void cell1(MouseEvent event) throws IOException {
         
-        ps.println(1);
-        System.out.println(dis.readInt());
+        if(isEmpty[0]){
+        {
+        if(isX)   
+        {
+             cell1.setGraphic(new ImageView(imgX));
+             isX=false;
+             isEmpty[0]=false;
+        }
+        else {
+            cell1.setGraphic(new ImageView(imgO));
+                         isX=true;
+                        isEmpty[0]=false;
+
+        }
+        }
+        }
         
         
     }

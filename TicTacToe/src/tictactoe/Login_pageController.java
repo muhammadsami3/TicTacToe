@@ -78,7 +78,6 @@ public class Login_pageController implements Initializable ,Runnable{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                           
                             switchToPage();
                         }
                     });
@@ -124,13 +123,13 @@ public class Login_pageController implements Initializable ,Runnable{
         }
     }
     public void switchToPage() {
-         ps.println("game");
+         
         Stage stage;
         Parent root;
         try {
            
             stage = (Stage) login_btn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("XO.fxml"));
+            root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
              

@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import static server.GameDatabase.*;
 
 
 public class Server {
@@ -31,10 +32,12 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        GameDatabase.connectToDatabase();
-       // GameDatabase.addPlayers("youns",123456);
-       GameDatabase.getPlayers();
-      
+        connectToDatabase();
+       addPlayers("yehia","123456");
+//       GameDatabase.getPlayers();
+//       GameDatabase.getNextId();
+//      GameDatabase.getPlayerpasswd("sami");
+          GameDatabase.validatePlayer("sami","123456");
 //        int passwd=GameDatabase.getPassword("aziz");
 //        System.out.println(passwd);
        new Server();

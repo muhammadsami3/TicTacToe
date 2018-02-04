@@ -23,9 +23,10 @@ public class GameDatabase {
     static Connection conn;
     static PreparedStatement stmt;
     static Statement stmt2;
-    static Statement stmt3;
-    static Statement stmt_getpasswd;
+    static PreparedStatement stmt3;
+    static PreparedStatement stmt_getpasswd;
     static ResultSet rs;
+    static ResultSet rs2;
    // static int playersIdSeries; 
 //    static Vector<String> players_name = new Vector<String>();
     
@@ -34,7 +35,7 @@ public class GameDatabase {
 
         try {
             Class.forName("org.postgresql.Driver");
-            conn = DriverManager.getConnection("jdbc:postgresql://10.145.1.127:5432/tictactoe", "postgres", "1022591400");
+            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/tictactoe", "postgres", "1022591400");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -42,34 +43,15 @@ public class GameDatabase {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-      public static  int getnextid(){
-          int id=-1;
-
-          
-        try {
-            
-             stmt3 = conn.createStatement();
-             String query = "Select * from players order by id desc limit 1";
-             rs = stmt3.executeQuery(query);
-             id=rs.getInt(1)+1;       
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-      return id ;
-      }
+  
       
-    public static void addPlayers(String uname) {
-        String query = "insert into players values(6,?,12)";
-     //   int id=getnextid();
-       
+    public static void addPlayers(String uname,String passwd) {
+        String query = "insert into players values(?,?,?)";
         try {
             stmt = conn.prepareStatement(query);
-            
-          //  stmt.setInt(1,id);
+            stmt.setInt(1,getNextId());
             stmt.setString(2,uname);
-        //    stmt.setInt(3,passwd);
-            
+            stmt.setString(3,passwd);
             stmt.execute();
 
         } catch (SQLException e) {
@@ -77,12 +59,29 @@ public class GameDatabase {
         }
     }
 
+     public static Integer getNextId() {
+        int id=-2;
+        try {
+            stmt2 = conn.createStatement();
+            String queryString = new String("Select * from players order by id desc limit 1");
+            rs = stmt2.executeQuery(queryString);
+             
+            rs.next();
+                id=rs.getInt(1)+1;
+                System.out.println(id);
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return id;
+    }
   
 
     public static Vector<String> getPlayers() {
         Vector<String> players_name= new Vector<String>(); 
         try {
-            
             stmt2 = conn.createStatement();
             String queryString = new String("Select * from players");
             rs = stmt2.executeQuery(queryString);
@@ -93,21 +92,42 @@ public class GameDatabase {
             for (String s : players_name) {
                 System.out.println(s);
             }
+           
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return players_name;
     }
+
+    
+      public static String getPlayerpasswd(String uname) {
+        String players_passwd= new String(); 
+        try {
+            stmt2 = conn.createStatement();
+            String queryString = new String("Select * from players where name = '"+uname+"'");
+            rs = stmt2.executeQuery(queryString);
+             
+            rs.next();
+            players_passwd=rs.getString(3);
+
+                System.out.println(players_passwd);
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return players_passwd;
+    }
     
       public static boolean validatePlayer(String uname,String passwd) {
         boolean valid = true;
+        String playerPass=getPlayerpasswd(uname);
         
         for (String s : getPlayers()) {
-            if (uname.equals(s)) {
-                
-                
-                
+            if (uname.equals(s) && passwd.equals(playerPass)) {
                 valid = false;
+                System.out.println("password is valid");
                 break;
             }
 
@@ -115,41 +135,5 @@ public class GameDatabase {
         return valid;
     }
 
-      public static int getPassword(String uname) {
-          int  passwd=-1;
-
-//          for (String s : getPlayers()) {
-//            if (uname.equals(s)) {
-
-String query = "Select * from players where name = '?'";
-        try {
-            stmt_getpasswd = conn.prepareStatement(query);
-            stmt.setString(1, uname);
-            rs=stmt.executeQuery();
-            passwd=rs.getInt(2);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-//              
-//              try {
-//                     stmt_getpasswd = conn.createStatement();
-//                     String queryString = new String("Select * from players where name = '"+uname+"'");
-//                    rs = stmt_getpasswd.executeQuery(queryString);
-//                  passwd=rs.getInt(2);
-//                  return passwd;
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(GameDatabase.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-
-//                
-//                break;
-//            }
-
-//        }
-          
-     return passwd;
-    }
-  
 
 }

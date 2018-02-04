@@ -33,11 +33,11 @@ public class Server {
 
     public static void main(String[] args) {
         connectToDatabase();
-       addPlayers("yehia","123456");
+//       addPlayers("yehia","123456");
 //       GameDatabase.getPlayers();
 //       GameDatabase.getNextId();
 //      GameDatabase.getPlayerpasswd("sami");
-          GameDatabase.validatePlayer("sami","123456");
+//          GameDatabase.validatePlayer("sami","123456");
 //        int passwd=GameDatabase.getPassword("aziz");
 //        System.out.println(passwd);
        new Server();

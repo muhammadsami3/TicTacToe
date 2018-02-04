@@ -89,7 +89,6 @@ public class Login_pageController implements Initializable ,Runnable{
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                        //    errorLabel.setText("invalid");
                         }
                     });
                     
@@ -103,9 +102,9 @@ public class Login_pageController implements Initializable ,Runnable{
   
     @FXML
     private void signUp(MouseEvent event) throws IOException {
-                if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty()  )
+        if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty()  )
                 {
-                    ps.println("login");
+                    ps.println("signup");
                     ps.println(uname.getText());
                    ps.println(passwd.getText());
                 }
@@ -116,14 +115,13 @@ public class Login_pageController implements Initializable ,Runnable{
     private void login(MouseEvent event)  throws IOException{
           if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty())
         {
-                   ps.println("signup");
+                   ps.println("login");
                     ps.println(uname.getText());
                    ps.println(passwd.getText());
 
         }
     }
     public void switchToPage() {
-         
         Stage stage;
         Parent root;
         try {

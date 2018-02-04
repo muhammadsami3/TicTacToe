@@ -38,8 +38,7 @@ class ClientHandler extends Thread {
 
                     String username = dis.readLine();
                     String passwd = dis.readLine();
-                    if (GameDatabase.validatePlayer(username, passwd)) {
-                        
+                    if (!GameDatabase.validatePlayer(username, passwd)) {
                         System.out.println("valid login name");
                         ps.println("valid");
                     } else {
@@ -52,7 +51,7 @@ class ClientHandler extends Thread {
 
                     String username = dis.readLine();
                     String passwd = dis.readLine();
-                    if (!GameDatabase.validatePlayer(username, passwd)) {
+                    if (GameDatabase.validatePlayer(username, passwd)) {
 
                         GameDatabase.addPlayers(username, passwd);
                         ps.println("valid");
@@ -60,8 +59,7 @@ class ClientHandler extends Thread {
                     } else {
                         ps.println("not valid");
                     }
-                } else if (clientRequest.equals("go online")) {
-                    
+                } else if (clientRequest.equals("onlineUsers")) {
                    String response=dis.readLine();
                     if (response.equals("get players")) {
                         playersName = GameDatabase.getPlayers();
@@ -83,7 +81,7 @@ class ClientHandler extends Thread {
                         for (ClientHandler ch : clientsVector) {
                             ch.ps.println(position);
                             System.out.println(position);
-          
+
                         }
 
                     }

@@ -16,7 +16,7 @@
             <Image url="@bg.jpg" />
          </image>
       </ImageView>
-    <GridPane layoutX="1.0" prefHeight="400.0" prefWidth="620.0">
+    <GridPane fx:id="grid" layoutX="1.0" prefHeight="400.0" prefWidth="620.0">
       <children>
             <Label fx:id="cell0" alignment="CENTER" onMouseClicked="#cell0" prefHeight="133.0" prefWidth="207.0">
                <font>

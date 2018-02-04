@@ -5,15 +5,18 @@
  */
 package tictactoe;
 
+import com.sun.javafx.scene.control.skin.LabeledText;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -21,6 +24,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import static tictactoe.Login_pageController.dis;
 import static tictactoe.Login_pageController.ps;
 
@@ -34,12 +38,14 @@ public class XOController implements Initializable ,Runnable{
 
    
     Thread th;
-    
+      
+
     Image imgO=new Image(getClass().getResourceAsStream("o.png"));
     Image imgX=new Image(getClass().getResourceAsStream("x.png"));
     //Image display=imgX;
      boolean isX=true;
      boolean isEmpty[]={true,true,true,true,true,true,true,true,true};
+     
     
     @FXML
     private AnchorPane rootPane;
@@ -61,52 +67,52 @@ public class XOController implements Initializable ,Runnable{
     private Label cell4;
     @FXML
     private Label cell6;
-
+    @FXML
+    private GridPane grid;
+      ArrayList labels=new ArrayList();
     /**
      * Initializes the controller class.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ps.println("game");
         th = new Thread(this);
         th.start();
+        labels.add(cell0);
+        labels.add(cell1);
+        labels.add(cell2);
+        labels.add(cell3);
+        labels.add(cell4);
+        labels.add(cell5);
+        labels.add(cell6);
+        labels.add(cell7);
+        labels.add(cell8);
+        
+         
     }    
 
     @FXML
     private void cell0(MouseEvent event) {
-        if(isEmpty[0]){
-        {
-        if(isX)   
-        {
-             cell0.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[0]=false;
-        }
-        else {
-            cell0.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[0]=false;
-
-        }
-        }
-        }
+         ps.println("0");
     }
 
-    public  void setImg(){
+    public  void setImg(int position){
         
-        if(isEmpty[1]){
+        if(isEmpty[position]){
         {
         if(isX)   
         {
-             cell1.setGraphic(new ImageView(imgX));
+             Label x =(Label)labels.get(position);
+             x.setGraphic(new ImageView(imgX));
              isX=false;
-             isEmpty[1]=false;
+             isEmpty[position]=false;
              
         }
         else {
             cell1.setGraphic(new ImageView(imgO));
                          isX=true;
-                        isEmpty[1]=false;
+                        isEmpty[position]=false;
 
         }
         }
@@ -117,167 +123,60 @@ public class XOController implements Initializable ,Runnable{
     @FXML
     private void cell1(MouseEvent event) throws IOException {
         
-        if(isEmpty[0]){
-        {
-        if(isX)   
-        {
-             cell1.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[0]=false;
-        }
-        else {
-            cell1.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[0]=false;
-
-        }
-        }
-        }
-        
+        ps.println("1");
         
     }
 
     @FXML
     private void cell2(MouseEvent event) {
-        if(isEmpty[2]){
-        {
-        if(isX)   
-        {
-             cell2.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[2]=false;
-        }
-        else {
-            cell2.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[2]=false;
-
-        }
-        }
-        }
+         ps.println("2");
     }
 
     @FXML
-    private void cell3(MouseEvent event) {if(isEmpty[3]){
-        {
-        if(isX)   
-        {
-             cell3.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[3]=false;
-        }
-        else {
-            cell3.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[3]=false;
-
-        }
-        }
-        }
+    private void cell3(MouseEvent event) { 
+        ps.println("3");
     }
 
     @FXML
-    private void cell4(MouseEvent event) {if(isEmpty[4]){
-        {
-        if(isX)   
-        {
-             cell4.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[4]=false;
-        }
-        else {
-            cell4.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[4]=false;
-
-        }
-        }
-        }
+    private void cell4(MouseEvent event) { ps.println("4");
     }
 
     @FXML
-    private void cell5(MouseEvent event) {if(isEmpty[5]){
-        {
-        if(isX)   
-        {
-             cell5.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[5]=false;
-        }
-        else {
-            cell5.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[5]=false;
-
-        }
-        }
-        }
+    private void cell5(MouseEvent event) { ps.println("5");
     }
 
     @FXML
-    private void cell6(MouseEvent event) {if(isEmpty[6]){
-        {
-        if(isX)   
-        {
-             cell6.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[6]=false;
-        }
-        else {
-            cell6.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[6]=false;
-
-        }
-        }
-        }
+    private void cell6(MouseEvent event) { ps.println("6");
     }
 
     @FXML
-    private void cell7(MouseEvent event) {if(isEmpty[7]){
-        {
-        if(isX)   
-        {
-             cell7.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[7]=false;
-        }
-        else {
-            cell7.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[0]=false;
-
-        }
-        }
-        }
+    private void cell7(MouseEvent event) { ps.println("7");
     }
 
     @FXML
-    private void cell8(MouseEvent event) {if(isEmpty[8]){
-        {
-        if(isX)   
-        {
-             cell8.setGraphic(new ImageView(imgX));
-             isX=false;
-             isEmpty[8]=false;
-        }
-        else {
-            cell8.setGraphic(new ImageView(imgO));
-                         isX=true;
-                        isEmpty[8]=false;
-
-        }
-        }
-        }
+    private void cell8(MouseEvent event) { ps.println("8");
     }
 
     @Override
     public void run() {
         while (true) {            
             try {
-                int position= dis.readInt();
+                
+                String temp= dis.readLine();
+                int position=Integer.parseInt(temp);
                 System.out.println("xocontroler "+position); 
-                setImg();
+                
+                
+                Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            
+                            setImg(position);
+                            
+                        }
+                    });
+                
+             
             } catch (IOException ex) {
                 Logger.getLogger(XOController.class.getName()).log(Level.SEVERE, null, ex);
             }

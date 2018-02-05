@@ -34,6 +34,8 @@ public class TicTacToe extends Application {
         primaryStage.setResizable(true);
         primaryStage.show();
     }
+    
+   
 
     /**
      * @param args the command line arguments

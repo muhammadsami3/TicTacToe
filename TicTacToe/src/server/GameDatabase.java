@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static server.Server.clientIndex;
 
 /**
  *
@@ -78,6 +79,7 @@ public class GameDatabase {
         return id;
     }
   
+     
 
     public static Vector<String> getPlayers() {
         Vector<String> players_name= new Vector<String>(); 
@@ -97,6 +99,47 @@ public class GameDatabase {
             System.out.println(e.getMessage());
         }
         return players_name;
+    }
+    
+     public static Vector<String> getOnlinePlayers(String uname) {
+        Vector<String> onlinePlayers= new Vector<String>(); 
+        
+        String query = " Select * from players where online='on' and name  != ? ";
+        try {
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1,uname);
+            rs=stmt.executeQuery();
+            
+             System.out.println("online players request");
+             
+                while (rs.next()) {
+              
+                onlinePlayers.add(rs.getString(2));
+            }
+                
+//              for (String s : onlinePlayers) {
+//                System.out.println(s);
+//            }
+           
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+//        try {
+//            stmt2 = conn.createStatement();
+//            String queryString = new String(" Select * from players where online='on' and name  != ? ");
+//            rs = stmt2.executeQuery(queryString);
+//            while (rs.next()) {
+//              
+//                onlinePlayers.add(rs.getString(2));
+//            }
+//           
+//           
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+        return onlinePlayers;
     }
 
     
@@ -135,21 +178,75 @@ public class GameDatabase {
         return valid;
     }
 
-       public static void setOnline(String uname) {
-           
+           public static int getPlayerId(String uname) {
+               int id=-1;
         try {
-            String query = "update players set online='yhhh' where name=?";
-            stmt = conn.prepareStatement(query);
-            stmt.setString(1,uname);
-            stmt.execute();
+            stmt2 = conn.createStatement();
+            String queryString = new String("Select * from players where name = '"+uname+"'");
+            rs = stmt2.executeQuery(queryString);
+             
+            rs.next();
+            id=rs.getInt(1);
 
-                System.out.println("player online");
+                System.out.println(id);
 
             
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         
+        return id;
+    }
+      
+//        public static void setOnline(String uname) {
+//            
+//            String query = "insert into onlinePlayers values(?,?,?)";
+//        try {
+//            stmt = conn.prepareStatement(query);
+//            stmt.setInt(1,clientIndex);
+//            stmt.setString(2,uname);
+//            stmt.setInt(3,getPlayerId(uname));
+//            stmt.execute();
+//             System.out.println("player online");
+//
+//        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//            
+//    }
+           
+       public static void setOnline(String uname) {
+           
+        try {
+            int id=getPlayerId(uname);
+            String query = "update players set online='on' where name=?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1,uname);
+            stmt.execute();
+
+                System.out.println(uname+" is online");
+
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+       
+       public static void addGameSession(String player1,String player2) {
+            
+            String query = "insert into game (first_player_id,second_player_id,created) values (?,?,now())";
+        try {
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1,getPlayerId(player1));
+            stmt.setInt(2,getPlayerId(player2));
+            stmt.execute();
+             System.out.println("inserted in table game");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+            
     }
 
 }

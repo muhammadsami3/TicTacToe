@@ -3,6 +3,7 @@ package server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Vector;
 import static server.GameDatabase.*;
 
 
@@ -15,6 +16,8 @@ public class Server {
     ServerSocket myServerSocket;
     Socket s;
     Thread th;
+    public static int clientIndex=0;
+     static Vector<String> onlinePlayers= new Vector<String>(); 
 
     public Server() {
 
@@ -22,7 +25,9 @@ public class Server {
             myServerSocket = new ServerSocket(5005);
             while (true) {
                 s = myServerSocket.accept();
-                new ClientHandler(s);
+                    
+                    System.out.println("clientIndex="+clientIndex);
+                new ServerHandler(s);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -30,6 +35,8 @@ public class Server {
         th.start();
    
     }
+    
+    
 
     public static void main(String[] args) {
         connectToDatabase();
@@ -41,7 +48,18 @@ public class Server {
 //          GameDatabase.validatePlayer("sami","123456");
 //        int passwd=GameDatabase.getPassword("aziz");
 //        System.out.println(passwd);
-       new Server();
+     //   System.out.println(getPlayerId("arwa"));
+//          GameDatabase.setOnline("arwa");
+// onlinePlayers= GameDatabase.getOnlinePlayers("sami");
+
+//        GameDatabase.addGameSession("omnia", "youns");
+//GameDatabase.getPlayerId("sami");
+ 
+//   for (String s : onlinePlayers) {
+//                System.out.println(s);
+//            }
+ 
+     new Server();
 
         
     }

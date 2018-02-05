@@ -92,25 +92,24 @@ public class XOController implements Initializable ,Runnable{
          
     }    
 
-    @FXML
-    private void cell0(MouseEvent event) {
-         ps.println("0");
-    }
+    String player="x";
 
     public  void setImg(int position){
-        
+        Label x =(Label)labels.get(position);
         if(isEmpty[position]){
         {
+            
         if(isX)   
         {
-             Label x =(Label)labels.get(position);
+             
+             System.out.println(position);
              x.setGraphic(new ImageView(imgX));
              isX=false;
              isEmpty[position]=false;
              
         }
         else {
-            cell1.setGraphic(new ImageView(imgO));
+            x.setGraphic(new ImageView(imgO));
                          isX=true;
                         isEmpty[position]=false;
 
@@ -120,42 +119,162 @@ public class XOController implements Initializable ,Runnable{
     
     }
     
+    int localCllID=-1;
+    @FXML
+    private void cell0(MouseEvent event) {
+        //ps.println(player);
+        /*if(player.equals("x")){
+        player="o";
+        }else
+        {player="x";
+    }*/
+        
+         if(continuePlying){
+        ps.println("0");
+         localCllID=0;
+           continuePlying=false;
+         }
+    }
     @FXML
     private void cell1(MouseEvent event) throws IOException {
-        
+         //ps.println(player);
+         /* if(player.equals("x")){
+        player="o";
+        }else
+        {player="x";
+    }*/
+         
+         if(continuePlying){
         ps.println("1");
-        
+         localCllID=1;
+           continuePlying=false;
+         }
     }
 
     @FXML
     private void cell2(MouseEvent event) {
-         ps.println("2");
+        //ps.println(player);
+        /*if (player.equals("x")) {
+            player = "o";
+        } else {
+            player = "x";
+        }*/
+        
+                 if(continuePlying)
+                 {
+                     localCllID=2;
+        ps.println("2");
+                 
+           continuePlying=false;
+                 }
+
     }
 
     @FXML
     private void cell3(MouseEvent event) { 
+        //ps.println(player);
+        /* if(player.equals("x")){
+        player="o";
+        }else
+        {player="x";
+    }*/
+       
+                 if(continuePlying){
         ps.println("3");
+           continuePlying=false;
+            localCllID=3;
+                 }
     }
 
     @FXML
-    private void cell4(MouseEvent event) { ps.println("4");
+    private void cell4(MouseEvent event) { 
+        // ps.println(player);
+          /*if(player.equals("x")){
+        player="o";
+        }else
+        {player="x";
+    }*/
+         
+                   if(continuePlying){
+        ps.println("4");
+           continuePlying=false;
+ localCllID=4;
+                   }
     }
 
     @FXML
-    private void cell5(MouseEvent event) { ps.println("5");
+    private void cell5(MouseEvent event) {
+        /*ps.println(player);
+          if(player.equals("x")){
+        player="o";
+        }else
+        {player="x";
+    }*/
+        
+        
+                 if(continuePlying){
+                        localCllID=5;
+                        ps.println("5");
+                      continuePlying=false; 
+                 }
+                     
+          
+    
     }
 
     @FXML
-    private void cell6(MouseEvent event) { ps.println("6");
+    private void cell6(MouseEvent event) {
+//        ps.println(player);
+//         if(player.equals("x")){
+//        player="o";
+//        }else
+//        {player="x";
+//    }
+
+         if(continuePlying){
+        ps.println("6");
+           continuePlying=false;
+           localCllID=6;
+    }
+         
     }
 
     @FXML
-    private void cell7(MouseEvent event) { ps.println("7");
+    private void cell7(MouseEvent event) {
+        
+//        ps.println(player);
+//          if(player.equals("x")){
+//        player="o";
+//        }else
+//        {player="x";
+//    }
+
+         if(continuePlying)
+         {
+        ps.println("7");
+           continuePlying=false;
+localCllID=7;
+         }
     }
 
     @FXML
-    private void cell8(MouseEvent event) { ps.println("8");
+    private void cell8(MouseEvent event) {
+        
+//        ps.println(player);
+//        if(player.equals("x")){
+//        player="o";
+//        }else
+//        {player="x";
+//    }
+
+         if(continuePlying)
+         {
+         ps.println("8");
+         localCllID=8;
+           continuePlying=false;
+         }
     }
+public boolean continuePlying=true;
 
     @Override
     public void run() {
@@ -164,21 +283,28 @@ public class XOController implements Initializable ,Runnable{
                 
                 String temp= dis.readLine();
                 int position=Integer.parseInt(temp);
-                System.out.println("xocontroler "+position); 
                 
+                if(position!=localCllID){
+                continuePlying=true;
+                }else{
+                    continuePlying=false;
+                }
                 
+                System.out.println("tictactoe.XOController.run(),LoclId="+localCllID+",Postion="+position);
                 Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            
+                            System.out.println("xocontroler "+position);
                             setImg(position);
-                            
+                             
                         }
                     });
                 
              
             } catch (IOException ex) {
+                 System.out.println("null");
                 Logger.getLogger(XOController.class.getName()).log(Level.SEVERE, null, ex);
+               
             }
         }
         

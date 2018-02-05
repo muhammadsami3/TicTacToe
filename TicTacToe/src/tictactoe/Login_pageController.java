@@ -51,6 +51,8 @@ public class Login_pageController implements Initializable ,Runnable{
     @FXML
     private TextField passwd;
 
+    static String loginname;
+   
     /**
      * Initializes the controller class.
      */
@@ -74,7 +76,10 @@ public class Login_pageController implements Initializable ,Runnable{
             while (true) {
                 String reply = dis.readLine();
                 if (reply.equals("valid")) {
+                    
+                    
                     System.out.println("valid");
+                    loginname=uname.getText();
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -127,7 +132,7 @@ public class Login_pageController implements Initializable ,Runnable{
         try {
            
             stage = (Stage) login_btn.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("mainpage.fxml"));
+            root = FXMLLoader.load(getClass().getResource("goOnline.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
              

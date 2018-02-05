@@ -5,22 +5,40 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Vector;
+import static server.Server.clientIndex;
 
-class ClientHandler extends Thread {
+class ServerHandler extends Thread {
 
     DataInputStream dis;
     PrintStream ps;
     String uname;
     String Password;
+    String asker;
+    String wanted;
+    boolean flag1=true;
+//    class Players{
+//    
+//    public ServerHandler Handler;
+//     int index;
+//
+//        public Players(ServerHandler h) {
+//            Handler=h;
+//            
+//        }
+//    
+//          
+//    }
 
-    static Vector<ClientHandler> clientsVector = new Vector<ClientHandler>();
+    static Vector<ServerHandler> clientsVector = new Vector<ServerHandler>();
     static Vector<String> playersName = new Vector<String>();
-    static Vector<String> Players = new Vector<String>();
 
-    public ClientHandler(Socket cs) {
+//    static Vector<Players> Players = new Vector<Players>();
+
+    public ServerHandler(Socket cs) {
         try {
             dis = new DataInputStream(cs.getInputStream());
             ps = new PrintStream(cs.getOutputStream());
+//            Players.add(new Players(this));
             clientsVector.add(this);
             start();
         } catch (IOException ex) {
@@ -31,6 +49,7 @@ class ClientHandler extends Thread {
     @Override
     public void run() {
         while (true) {
+                       
 
             try {
                 String clientRequest = dis.readLine();
@@ -41,7 +60,9 @@ class ClientHandler extends Thread {
                     if (!GameDatabase.validatePlayer(username, passwd)) {
                         
                         System.out.println("valid login name");
+                        clientIndex++;
                         GameDatabase.setOnline(username);
+                        
                         ps.println("valid");
                     } else {
 
@@ -63,36 +84,114 @@ class ClientHandler extends Thread {
                     }
                 } else if (clientRequest.equals("go online")) {
                     
-                   String response=dis.readLine();
+                    System.out.println("is online");
+                    while (true) {   
+                   
+                    String response=dis.readLine();
+                    
+                    
                     if (response.equals("get players")) {
-                        playersName = GameDatabase.getPlayers();
+                             System.out.println("get players");
+                        playersName.removeAllElements();                      
+                        String onlineUname=dis.readLine();
+                       System.out.println(onlineUname+" request online users");
+                        playersName = GameDatabase.getOnlinePlayers(onlineUname);
+                        
+                        ps.println("steady");
+                        
                         for (String p : playersName) {
                             ps.println(p);
                             System.out.println(p);
                         }
+                        ps.println("done");
+                    System.out.println("server done");
 
-                    } else {
+
+                    } else if(response.equals("send invitation")){
+                        System.out.println("send invitation");
+                        wanted=dis.readLine();
+                        asker=dis.readLine();
+                        
+                          System.out.println("wanted is " +wanted);
+                          System.out.println("asker is " +asker);
+                    
+
+                         for (ServerHandler ch : clientsVector) {
+                             ch.ps.println("choosen one");
+                             
+                              ch.ps.println(wanted);
+                             ch.ps.println(asker);
+                            
+          
+                        }
                         
                     }
-                } else if (clientRequest.equals("game")) {
+                    
+                    else if (response.equals("accept invitation")) {
+                        
+                        System.out.println("invitation accepted");
+                           String asker1=dis.readLine();
+                           String wanted1=dis.readLine();
 
-                    System.out.println("game");
+                        
+                            System.out.println("wanted is " +wanted1);
+                          System.out.println("asker is " +asker1);
+                    
+                            GameDatabase.addGameSession(asker1, wanted1);
+                            
+                            for (ServerHandler ch : clientsVector) {
+                             ch.ps.println("start session");
+                             
+                              ch.ps.println(wanted1);
+                             ch.ps.println(asker1);
+                            
+          
+                        }
+                        
+                            
+                            
+                            
+                        }
+                    
+                    else if (response.equals("game")){
+                           System.out.println("game");
 
                     while (true) {
 
                         String position = dis.readLine();
-                        for (ClientHandler ch : clientsVector) {
+                        for (ServerHandler ch : clientsVector) {
                             ch.ps.println(position);
                             System.out.println(position);
           
                         }
 
                     }
-                }
+                    }
+                        
+                    }
+                   
+                } /*else if (clientRequest.equals("game")) {
+
+                    System.out.println("nnoooo game");
+//
+//                    while (true) {
+//
+//                        String position = dis.readLine();
+//                        for (ServerHandler ch : clientsVector) {
+//                            ch.ps.println(position);
+//                            System.out.println(position);
+//          
+//                        }
+//
+//                    }
+                }*/
             } catch (IOException ex) {
                 clientsVector.remove(this);
                 playersName.remove(this.uname);
                 System.out.println("remove");
+                clientIndex --;
+                System.out.println("clientIndex="+clientIndex);
+
                 break;
             }
 

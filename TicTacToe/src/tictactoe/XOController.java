@@ -227,6 +227,11 @@ public class XOController implements Initializable, Runnable {
                 System.out.println("runnnnnnnnnnnnnnnnnnnnn");
               String player1 = dis.readLine().trim();
                String player2 = dis.readLine().trim();
+                 String temp = dis.readLine().trim();
+                 
+                    System.out.println("position at "+loginname+" = "+temp);
+
+                   
              System.out.println("1p "+player1+" 2p "+player2);
                 
                 if (loginname.equals(player1) || loginname.equals(player2)) {
@@ -234,11 +239,7 @@ public class XOController implements Initializable, Runnable {
                       System.out.println("only 2");
                    
                       
-                     String temp = dis.readLine().trim();
-                    System.out.println(temp);
-
                     int position = Integer.parseInt(temp);
-
                     if (position != localCllID) {
                         continuePlying = true;
                     } else {

@@ -233,8 +233,8 @@ public class GameDatabase {
         
     }
        
-       public static void addGameSession(String player1,String player2) {
-            
+       public static int  addGameSession(String player1,String player2) {
+            int gameId=-1;
             String query = "insert into game (first_player_id,second_player_id,created) values (?,?,now())";
         try {
             stmt = conn.prepareStatement(query);
@@ -246,7 +246,38 @@ public class GameDatabase {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        
+             try {
+            stmt2 = conn.createStatement();
+            String queryString = new String("Select * from game order by created  desc limit 1");
+            rs = stmt2.executeQuery(queryString);
+             
+            rs.next();
+                gameId=rs.getInt(1);
+                System.out.println(gameId);
+
             
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+         return gameId;
     }
+       
+        public static void  storeGameRecord(int  gameid,int position) {
+          
+            String query = "insert into moves_record (game_id,position,time_stamp) values (?,?,now());";
+        try {
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1,gameid);
+            stmt.setInt(2,position);
+            stmt.execute();
+             System.out.println("inserted in table moves_record");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+
 
 }

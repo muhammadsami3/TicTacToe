@@ -52,7 +52,9 @@ public class Server {
 //          GameDatabase.setOnline("arwa");
 // onlinePlayers= GameDatabase.getOnlinePlayers("sami");
 
-//        GameDatabase.addGameSession("omnia", "youns");
+GameDatabase.storeGameRecord(124,0);
+
+        System.out.println("game id "+GameDatabase.addGameSession("omnia", "youns"));  
 //GameDatabase.getPlayerId("sami");
  
 //   for (String s : onlinePlayers) {

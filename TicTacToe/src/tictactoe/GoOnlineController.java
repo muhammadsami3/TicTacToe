@@ -68,7 +68,7 @@ public class GoOnlineController implements Initializable, Runnable {
     @Override
 
     public void initialize(URL url, ResourceBundle rb) {
-        ps.println("go online");
+        ps.println("  go online");
         myname=loginname;
         th = new Thread(this);
         th.start();
@@ -76,8 +76,8 @@ public class GoOnlineController implements Initializable, Runnable {
 
     @FXML
     private void handleRefreshButtonAction(MouseEvent event) {
-        ps.println("get players");
-        ps.println(myname);
+        ps.println("  get players");
+        ps.println(" "+myname);
     }
 
     @FXML
@@ -89,7 +89,7 @@ public class GoOnlineController implements Initializable, Runnable {
         try {
             while (true) {
 
-                String replyMsg = dis.readLine();
+                String replyMsg = dis.readLine().trim();
 
                 System.out.println(replyMsg);
 
@@ -99,7 +99,7 @@ public class GoOnlineController implements Initializable, Runnable {
 
                     while (flag) {
 
-                        String recieved = dis.readLine();//receive users
+                        String recieved = dis.readLine().trim();//receive users
 
                         if (recieved.equals("done")) {
 
@@ -115,15 +115,20 @@ public class GoOnlineController implements Initializable, Runnable {
                     }
 
                 } else if (replyMsg.equals("choosen one")) {
+                    
                    System.out.println("paging for chosen one");
-                 String temp=  dis.readLine();//wanted
+                 String temp=  dis.readLine().trim();//wanted
+                 String temp2 = dis.readLine().trim();
                  
-                  System.out.println(" paging for  "+wanted);
-                    System.out.println("my name is "+myname);
+                  System.out.println(" paging for  "+temp);
+                  System.out.println(" asker is  "+temp2);
+                   
                     
                     if (temp.equals(myname)) {
+                        
+                    System.out.println("that is myname is "+myname);
                          wanted = temp;
-                         asker = dis.readLine();
+                         asker =  temp2;
                          popupPane.setVisible(true);//show
                     }
 
@@ -131,10 +136,10 @@ public class GoOnlineController implements Initializable, Runnable {
                 
                 else if(replyMsg.equals("start session")){
                     
-               System.out.println("sesssssaaaaaaaaaaaaaaaaaaaaaaaan");
+               System.out.println("switch to game page");
                
-                   String temp1=  dis.readLine();
-                  String temp2=  dis.readLine();
+                   String temp1=  dis.readLine().trim();
+                  String temp2=  dis.readLine().trim();
 
                     if (temp1.equals(myname)||temp2.equals(myname)) {
                         
@@ -145,7 +150,7 @@ public class GoOnlineController implements Initializable, Runnable {
                         @Override
                         public void run() {
                             switchToPage();
-                            th.stop();
+                            
                         }
                     });
                         
@@ -168,9 +173,9 @@ public class GoOnlineController implements Initializable, Runnable {
         String selected = usersList.getSelectionModel().getSelectedItem();
 
         selectedLabel.setText("send request " + selected);
-        ps.println("send invitation");
-          ps.println(selected);
-        ps.println(myname);
+        ps.println("  send invitation");
+          ps.println(" "+selected);
+        ps.println(" "+myname);
         System.out.println(myname+" ask for "+selected);
 
 
@@ -183,10 +188,11 @@ public class GoOnlineController implements Initializable, Runnable {
     @FXML
     private void AcceptHandler(MouseEvent event) {
         
-        ps.println("accept invitation");
-        System.out.println("ayyyyyyyyy 7agaaaaaaa111   "+asker+" to "+wanted);
-        ps.println(asker);
-        ps.println(myname);
+        ps.println("  accept invitation");
+        System.out.println(wanted +" accept to play with "+asker);
+        
+        ps.println(" "+asker);
+        ps.println(" "+myname);
         
         
         

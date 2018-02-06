@@ -76,7 +76,7 @@ public class XOController implements Initializable, Runnable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ps.println("game");
+        ps.println(" game");
         System.out.println("game");
 //        ps.println(Login_pageController.loginname);
 //        ps.println();
@@ -229,7 +229,7 @@ public class XOController implements Initializable, Runnable {
                String player2 = dis.readLine().trim();
                  String temp = dis.readLine().trim();
                  
-                    System.out.println("position at "+loginname+" = "+temp);
+           System.out.println("position at "+loginname+" = "+temp);
 
                    
              System.out.println("1p "+player1+" 2p "+player2);

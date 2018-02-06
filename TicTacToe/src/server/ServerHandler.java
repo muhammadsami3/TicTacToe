@@ -48,70 +48,70 @@ class ServerHandler extends Thread {
         while (true) {
 
             try {
-                String clientRequest = dis.readLine();
+                String clientRequest = dis.readLine().trim();
                 if (clientRequest.equals("login")) {
 
-                    String username = dis.readLine();
-                    String passwd = dis.readLine();
+                    String username = dis.readLine().trim();
+                    String passwd = dis.readLine().trim();
                     if (!GameDatabase.validatePlayer(username, passwd)) {
 
                         System.out.println("valid login name");
                         clientIndex++;
                         GameDatabase.setOnline(username);
 
-                        ps.println("valid");
+                        ps.println(" valid");
                     } else {
 
                         System.out.println("not valid login name");
-                        ps.println("not valid");
+                        ps.println(" not valid");
                     }
 
                 } else if (clientRequest.equals("signup")) {
 
-                    String username = dis.readLine();
-                    String passwd = dis.readLine();
+                    String username = dis.readLine().trim();
+                    String passwd = dis.readLine().trim();
                     if (!GameDatabase.validatePlayer(username, passwd)) {
 
                         GameDatabase.addPlayers(username, passwd);
-                        ps.println("valid");
+                        ps.println(" valid");
 
                     } else {
-                        ps.println("not valid");
+                        ps.println(" not valid");
                     }
                 } else if (clientRequest.equals("go online")) {
 
                     System.out.println("is online");
                     while (true) {
 
-                        String response = dis.readLine();
+                        String response = dis.readLine().trim();
 
                         if (response.equals("get players")) {
                             System.out.println("get players");
                             playersName.removeAllElements();
-                            String onlineUname = dis.readLine();
+                            String onlineUname = dis.readLine().trim();
                             System.out.println(onlineUname + " request online users");
                             playersName = GameDatabase.getOnlinePlayers(onlineUname);
 
-                            ps.println("steady");
+                            ps.println(" steady");
 
                             for (String p : playersName) {
                                 ps.println(p);
                                 System.out.println(p);
                             }
-                            ps.println("done");
+                            ps.println(" done");
                             System.out.println("server done");
 
                         } else if (response.equals("send invitation")) {
                             
                             System.out.println(" send invitation .....................");
-                            wanted = dis.readLine();
-                            asker = dis.readLine();
+                            wanted = dis.readLine().trim();
+                            asker = dis.readLine().trim();
 
                             System.out.println("wanted is " + wanted);
                             System.out.println("asker is " + asker);
 
                             for (ServerHandler ch : clientsVector) {
-                                ch.ps.println("choosen one");
+                                ch.ps.println(" choosen one");
 
                                 ch.ps.println(wanted);
                                 ch.ps.println(asker);
@@ -121,8 +121,8 @@ class ServerHandler extends Thread {
                         } else if (response.equals("accept invitation")) {
 
                             System.out.println("invitation accepted");                                            
-                             asker = dis.readLine();
-                             wanted = dis.readLine();
+                             asker = dis.readLine().trim();
+                             wanted = dis.readLine().trim();
 
                             System.out.println("wanted is " + wanted);
                             System.out.println("asker is " + asker);
@@ -138,22 +138,25 @@ class ServerHandler extends Thread {
                              System.out.println("server.ServerHandler.run() ch.wanted is " + ch.wanted);
                                System.out.println("server.ServerHandler.run() ch.asker is " + ch.asker);
                                
-                                if(ch.asker.equals(wanted)&&ch.wanted.equals(asker)){
+                               if(ch.wanted!=null && ch.asker!=null)
+                               {
+                          if(ch.asker.equals(asker) && ch.wanted.equals(wanted)){
                                    
                                     ch.gameId=gameId;
                                     
                                     System.out.println(ch.gameId +" to "+gameId);
                                 }
-
+                               }
                             }
                             
 
                             for (ServerHandler ch : clientsVector) {
-                                ch.ps.println("start session");
+                                ch.ps.println(" start session");
                                 
-                                ch.ps.println(wanted);
-                                ch.ps.println(asker);
-                                   
+                                ch.ps.println(" "+asker);
+                                ch.ps.println(" "+wanted);
+                                
+                                System.out.println("******* Start seeion between "+asker+" and "+wanted);
                                 }
 
                             
@@ -170,6 +173,7 @@ class ServerHandler extends Thread {
                          GameDatabase.storeGameRecord(gameId,Integer.parseInt(position));
                                 
                                 for (ServerHandler ch : clientsVector) {
+                                    
                                      ch.ps.println(" "+asker);
                                    
                                      ch.ps.println(wanted);
@@ -188,28 +192,11 @@ class ServerHandler extends Thread {
                     }
 
                 }
-                /*else if (clientRequest.equals("game")) {
-
-                    System.out.println("nnoooo game");
-//
-//                    while (true) {
-//
-//                        String position = dis.readLine();
-//                        for (ServerHandler ch : clientsVector) {
-//                            ch.ps.println(position);
-//                            System.out.println(position);
-//          
-//                        }
-//
-//                    }
-                }*/
+               
             } catch (IOException ex) {
                 clientsVector.remove(this);
-                playersName.remove(this.uname);
                 System.out.println("remove");
-                clientIndex--;
-                System.out.println("clientIndex=" + clientIndex);
-
+         
                 break;
             }
 

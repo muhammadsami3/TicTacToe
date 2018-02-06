@@ -74,7 +74,7 @@ public class Login_pageController implements Initializable ,Runnable{
     public void run() {
         try {
             while (true) {
-                String reply = dis.readLine();
+                String reply = dis.readLine().trim();
                 if (reply.equals("valid")) {
                     
                     
@@ -111,9 +111,9 @@ public class Login_pageController implements Initializable ,Runnable{
     private void signUp(MouseEvent event) throws IOException {
         if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty()  )
                 {
-                    ps.println("signup");
-                    ps.println(uname.getText());
-                   ps.println(passwd.getText());
+                    ps.println(" signup");
+                    ps.println(" "+uname.getText());
+                   ps.println(" "+passwd.getText());
                 }
 
     }
@@ -122,9 +122,9 @@ public class Login_pageController implements Initializable ,Runnable{
     private void login(MouseEvent event)  throws IOException{
           if(!uname.getText().trim().isEmpty() && !passwd.getText().trim().isEmpty())
         {
-                   ps.println("login");
-                    ps.println(uname.getText());
-                   ps.println(passwd.getText());
+                   ps.println(" login ");
+                    ps.println(" "+uname.getText());
+                   ps.println(" "+passwd.getText());
 
         }
     }
@@ -139,7 +139,9 @@ public class Login_pageController implements Initializable ,Runnable{
             stage.setScene(scene);
              
             stage.show();
-              th1.stop();
+             th1.stop();
+
+              
             
         } catch (IOException ex) {
             Logger.getLogger(Login_pageController.class.getName()).log(Level.SEVERE, null, ex);

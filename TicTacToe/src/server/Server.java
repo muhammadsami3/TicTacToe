@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.Vector;
 import static server.GameDatabase.*;
 
-
 public class Server {
 
     static boolean validatePlayer(String uname) {
@@ -16,8 +15,8 @@ public class Server {
     ServerSocket myServerSocket;
     Socket s;
     Thread th;
-    public static int clientIndex=0;
-     static Vector<String> onlinePlayers= new Vector<String>(); 
+    public static int clientIndex = 0;
+    static Vector<String> onlinePlayers = new Vector<String>();
 
     public Server() {
 
@@ -25,18 +24,16 @@ public class Server {
             myServerSocket = new ServerSocket(5005);
             while (true) {
                 s = myServerSocket.accept();
-                    
-                    System.out.println("clientIndex="+clientIndex);
+
+                System.out.println("clientIndex=" + clientIndex);
                 new ServerHandler(s);
             }
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         th.start();
-   
+
     }
-    
-    
 
     public static void main(String[] args) {
         connectToDatabase();
@@ -48,22 +45,17 @@ public class Server {
 //          GameDatabase.validatePlayer("sami","123456");
 //        int passwd=GameDatabase.getPassword("aziz");
 //        System.out.println(passwd);
-     //   System.out.println(getPlayerId("arwa"));
+        //   System.out.println(getPlayerId("arwa"));
 //          GameDatabase.setOnline("arwa");
 // onlinePlayers= GameDatabase.getOnlinePlayers("sami");
 
-GameDatabase.storeGameRecord(124,0);
-
-        System.out.println("game id "+GameDatabase.addGameSession("omnia", "youns"));  
+//GameDatabase.storeGameRecord(124,0);
+//        System.out.println("game id "+GameDatabase.addGameSession("omnia", "youns"));  
 //GameDatabase.getPlayerId("sami");
- 
 //   for (String s : onlinePlayers) {
 //                System.out.println(s);
 //            }
- 
-     new Server();
+        new Server();
 
-        
     }
 }
-

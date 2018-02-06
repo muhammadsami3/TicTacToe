@@ -79,7 +79,9 @@ public class Login_pageController implements Initializable ,Runnable{
                     
                     
                     System.out.println("valid");
+                    
                     loginname=uname.getText();
+                    
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -137,6 +139,7 @@ public class Login_pageController implements Initializable ,Runnable{
             stage.setScene(scene);
              
             stage.show();
+              th1.stop();
             
         } catch (IOException ex) {
             Logger.getLogger(Login_pageController.class.getName()).log(Level.SEVERE, null, ex);

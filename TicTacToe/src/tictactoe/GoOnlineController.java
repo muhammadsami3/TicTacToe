@@ -59,12 +59,9 @@ public class GoOnlineController implements Initializable, Runnable {
     @FXML
     private Button refuseBtn;
     boolean flag=true;
-    public  String asker;
-   public String wanted;
+    public String asker;
+    public  String wanted;
    String myname;
-//    static  String wanted="";
-//    static  String asker="";
-
     /**
      * Initializes the controller class.
      */
@@ -80,7 +77,7 @@ public class GoOnlineController implements Initializable, Runnable {
     @FXML
     private void handleRefreshButtonAction(MouseEvent event) {
         ps.println("get players");
-        ps.println(loginname);
+        ps.println(myname);
     }
 
     @FXML
@@ -118,16 +115,16 @@ public class GoOnlineController implements Initializable, Runnable {
                     }
 
                 } else if (replyMsg.equals("choosen one")) {
-                   
-                  wanted = dis.readLine();
-                  System.out.println(wanted);
-                    System.out.println(loginname);
-//                    System.out.println("kkkkkkkkkkkkkkkkkkkkkk");
-                    if (wanted.equals(loginname)) {
-                        
+                   System.out.println("paging for chosen one");
+                 String temp=  dis.readLine();//wanted
+                 
+                  System.out.println(" paging for  "+wanted);
+                    System.out.println("my name is "+myname);
+                    
+                    if (temp.equals(myname)) {
+                         wanted = temp;
                          asker = dis.readLine();
-                         wanted=loginname;
-                         popupPane.setVisible(true);
+                         popupPane.setVisible(true);//show
                     }
 
                 }
@@ -136,15 +133,19 @@ public class GoOnlineController implements Initializable, Runnable {
                     
                System.out.println("sesssssaaaaaaaaaaaaaaaaaaaaaaaan");
                
-                     wanted = dis.readLine();
-                     asker = dis.readLine();
-                    System.out.println(wanted);
-                    System.out.println(asker);
-                    if (wanted.equals(myname)||asker.equals(myname)) {
+                   String temp1=  dis.readLine();
+                  String temp2=  dis.readLine();
+
+                    if (temp1.equals(myname)||temp2.equals(myname)) {
+                        
+                        wanted = temp1;
+                       asker = temp2;
+                        System.out.println(" session between "+wanted+"  and "+asker);
                          Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
                             switchToPage();
+                            th.stop();
                         }
                     });
                         
@@ -168,12 +169,10 @@ public class GoOnlineController implements Initializable, Runnable {
 
         selectedLabel.setText("send request " + selected);
         ps.println("send invitation");
-        System.out.println("ahoooooooo-111> "+selected);
-         // GoOnlineController.name1=selected;
-          //System.out.println(GoOnlineController.name1);
-           //name2=loginname;
-        ps.println(selected);
-        ps.println(loginname);
+          ps.println(selected);
+        ps.println(myname);
+        System.out.println(myname+" ask for "+selected);
+
 
     }
 
@@ -205,6 +204,7 @@ public class GoOnlineController implements Initializable, Runnable {
             stage.setScene(scene);
              
             stage.show();
+            th.stop();
             
         } catch (IOException ex) {
             Logger.getLogger(Login_pageController.class.getName()).log(Level.SEVERE, null, ex);
